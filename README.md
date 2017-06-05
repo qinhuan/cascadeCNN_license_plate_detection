@@ -18,7 +18,7 @@ test process details in lp_test.py, you can run
 `python lp_test.py`  
     
 you need to change some parameter as follows:  
-- caffe_root : caffe root dir  
+- `caffe_root` : caffe root dir  
 - workspace  : code dir  
 - img_dir    : image dir  
 - img_list_file: image list file  
