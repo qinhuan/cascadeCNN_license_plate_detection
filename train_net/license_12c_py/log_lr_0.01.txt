@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "./run.py", line 140, in <module>
+    create_jobs()
+  File "./run.py", line 47, in create_jobs
+    print(Net.create_net(phase), file=f)
+  File "/home/work/qinhuan/mywork/license_plate/cascadeCNN_license_plate_detection/train_net/license_12c_py/license_12_net.py", line 66, in create_net
+    net.conv1 = L.Convolution(net.data, num_output=16, kernel_size=3, **kwargs)
+  File "/home/work/qinhuan/mywork/caffe/python/caffe/net_spec.py", line 180, in __getattr__
+    return self.tops[name]
+KeyError: 'data'

@@ -1,0 +1,16 @@
+train_net: "/home/work/qinhuan/mywork/license_plate/cascadeCNN_license_plate_detection/train_net/jobs/license_6c/train.prototxt"
+test_net: "/home/work/qinhuan/mywork/license_plate/cascadeCNN_license_plate_detection/train_net/jobs/license_6c/test.prototxt"
+test_iter: 20
+test_interval: 2500
+base_lr: 0.00999999977648
+display: 500
+max_iter: 400000
+lr_policy: "step"
+gamma: 0.5
+momentum: 0.899999976158
+weight_decay: 0.00800000037998
+stepsize: 30000
+snapshot: 50000
+snapshot_prefix: "/home/work/qinhuan/mywork/license_plate/cascadeCNN_license_plate_detection/train_net/jobs/license_6c/license_6c"
+type: "SGD"
+

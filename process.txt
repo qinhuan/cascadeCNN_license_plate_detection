@@ -1,0 +1,142 @@
+# cascade cnn for license plate detection process
+
+1. ---------------------------------
+6c net
+# preprocess data
+    dir:cascadeCNN_license_plate_detection/preprocess_data/lp_6c
+
+    # create positive and negative sample
+    python create_hard_negative.py
+    python license_plate.py
+
+    # create list
+    python shuffle_write_negatives.py
+    python shuffle_write_positives.py
+
+    # resize image to (18 * 6) if necessary
+    python pre_resize.py
+
+    # write train and val file for creating lmdb data
+    python write_train_val.py
+
+# create lmdb data if necessary
+    dir:cascadeCNN_license_plate_detection/lmdb/6c
+    # create lmdb data
+    ./create_license_6c.sh
+
+    # create mean file
+    ./make_imagenet_mean.sh
+
+# train net
+    dir:cascadeCNN_license_plate_detection/train_net/license_12c_py
+    
+    # train 6c net, more info in 'run.py' and 'license_6_net.py'
+    ./train.sh
+
+# change fully connected layer to fully convolutional layer
+    dir:cascadeCNN_license_plate_detection/preprocess_data/license_6c
+
+    # change conn to conv
+    python license_6_surgery.py
+
+2. ------------------------------------
+12cal net
+# preprocess data
+    dir:cascadeCNN_license_plate_detection/preprocess_data/license_12cal
+
+    # create data and list, and shuffle data
+    python calibration_12cal.py
+
+# create lmdb data
+    dir:cascadeCNN_license_plate_detection/lmdb/12_cal
+    # create lmdb data
+    ./create_license_12cal.sh
+    # create mean file
+    ./make_imagenet_mean.sh
+
+# train net
+    dir:cascadeCNN_license_plate_detection/train_net/license_12cal_py
+    # train 12cal net, more info in 'run.py' and 'license_12cal_net.py'
+    ./train.sh
+
+3. --------------------------------------
+24c net
+# preprocess data
+    dir:cascadeCNN_license_plate_detection/preprocess_data/license_24c/fromOrigin
+    
+    # test using 12&12cal to calc threshold for guaranteeing recall 99%
+    python test_recall.py
+
+    # create negative 24c data
+    python create_negative_24c.py
+
+    # resize image, and shuffle data, and write val file for creating lmdb data
+    python pre_resize.py
+    python shuffle_write_negatives_fromOrigin.py
+
+# create lmdb data
+    dir:cascadeCNN_license_plate_detection/lmdb/24
+    # create lmdb data
+    ./create_license_24.sh
+    # create mean file
+    ./make_imagenet_mean.sh
+
+# train net
+    dir:cascadeCNN_license_plate_detection/train_net/license_24c_py
+    # train 24c net, more info in 'run.py' and 'license_24_net.py'
+    ./train.sh
+
+4.--------------------------------------
+24cal net
+# preprocess data
+    # use data from license_12cal
+# create lmdb data
+    # use data from license_12cal
+# train net
+    dir:cascadeCNN_license_plate_detection/train_net/license_24c_py
+    # train 24cal net, more info in 'run.py' and 'license_24cal_net.py'
+    ./train.sh
+
+5.---------------------------------------
+48c net
+# preprocess data   
+    dir:cascadeCNN_license_plate_detection/preprocess_data/license_48c
+   
+    # test using 12&12cal&24&24cal to calc threshold for guaranteeing recall 97%
+    ./test_recall.py
+
+    # create negative 48c data
+    python create_negative_48c.py
+
+    # resize image, and shuffle data, and write val file for creating lmdb data
+    python shuffle_write_negatives_fromOrigin.py
+
+# create lmdb data
+    dir:cascadeCNN_license_plate_detection/lmdb/48_sh
+    # create lmdb data
+    ./create_license_48.sh
+    # create mean file
+    ./make_imagenet_mean.sh
+
+# train net
+    dir:cascadeCNN_license_plate_detection/train_net/license_48c_lmdb
+    # train 48c net, more info in 'run.py' and 'license_48_net.py'
+    ./train.sh
+
+6.---------------------------------------
+# preprocess data
+    dir:cascadeCNN_license_plate_detection/preprocess_data/license_48cal
+    # create 48 cal data, and shuffle, and write
+    python calibration_48cal.py
+
+# create lmdb data
+    dir:cascadeCNN_license_plate_detection/lmdb/48_cal
+    # create lmdb data and calc mean
+    ./create_license_48cal.sh
+    ./make_imagenet_mean.sh
+
+# train net
+    dir:cascadeCNN_license_plate_detection/train_net/license_48cal_py
+    # train 48cal net, more info in 'run.py' and 'license_48cal_net.py'
+    ./train.sh
+

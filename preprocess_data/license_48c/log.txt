@@ -1,0 +1,1966 @@
+nohup: ignoring input
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+W0521 17:54:04.043066 16676 _caffe.cpp:139] DEPRECATION WARNING - deprecated use of Python interface
+W0521 17:54:04.043085 16676 _caffe.cpp:140] Use this instead (with the named "weights" parameter):
+W0521 17:54:04.043087 16676 _caffe.cpp:142] Net('/home/work/qinhuan/mywork/license_plate/cascadeCNN_license_plate_detection/train_net/jobs/license_12c/license12c_full_conv.prototxt', 1, weights='/home/work/qinhuan/mywork/license_plate/cascadeCNN_license_plate_detection/train_net/jobs/license_12c/license12c_full_conv_5x17.caffemodel')
+I0521 17:54:04.044019 16676 upgrade_proto.cpp:67] Attempting to upgrade input file specified using deprecated input fields: /home/work/qinhuan/mywork/license_plate/cascadeCNN_license_plate_detection/train_net/jobs/license_12c/license12c_full_conv.prototxt
+I0521 17:54:04.044029 16676 upgrade_proto.cpp:70] Successfully upgraded file specified using deprecated input fields.
+W0521 17:54:04.044033 16676 upgrade_proto.cpp:72] Note that future Caffe releases will only support input layers and not input fields.
+I0521 17:54:04.044080 16676 net.cpp:51] Initializing net from parameters: 
+name: "license_12c_conv"
+state {
+  phase: TEST
+  level: 0
+}
+layer {
+  name: "input"
+  type: "Input"
+  top: "data"
+  input_param {
+    shape {
+      dim: 1
+      dim: 3
+      dim: 12
+      dim: 36
+    }
+  }
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  convolution_param {
+    num_output: 16
+    kernel_size: 3
+  }
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "pool1"
+  top: "pool1"
+}
+layer {
+  name: "fc2-conv"
+  type: "Convolution"
+  bottom: "pool1"
+  top: "fc2-conv"
+  convolution_param {
+    num_output: 16
+    kernel_h: 5
+    kernel_w: 17
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "fc2-conv"
+  top: "fc2-conv"
+}
+layer {
+  name: "drop2"
+  type: "Dropout"
+  bottom: "fc2-conv"
+  top: "fc2-conv"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "fc3-conv"
+  type: "Convolution"
+  bottom: "fc2-conv"
+  top: "fc3-conv"
+  convolution_param {
+    num_output: 2
+    kernel_size: 1
+  }
+}
+layer {
+  name: "prob"
+  type: "Softmax"
+  bottom: "fc3-conv"
+  top: "prob"
+}
+I0521 17:54:04.044106 16676 layer_factory.hpp:77] Creating layer input
+I0521 17:54:04.044111 16676 net.cpp:84] Creating Layer input
+I0521 17:54:04.044116 16676 net.cpp:380] input -> data
+I0521 17:54:04.053920 16676 net.cpp:122] Setting up input
+I0521 17:54:04.053938 16676 net.cpp:129] Top shape: 1 3 12 36 (1296)
+I0521 17:54:04.053941 16676 net.cpp:137] Memory required for data: 5184
+I0521 17:54:04.053946 16676 layer_factory.hpp:77] Creating layer conv1
+I0521 17:54:04.053954 16676 net.cpp:84] Creating Layer conv1
+I0521 17:54:04.053958 16676 net.cpp:406] conv1 <- data
+I0521 17:54:04.053962 16676 net.cpp:380] conv1 -> conv1
+I0521 17:54:04.201614 16676 net.cpp:122] Setting up conv1
+I0521 17:54:04.201637 16676 net.cpp:129] Top shape: 1 16 10 34 (5440)
+I0521 17:54:04.201640 16676 net.cpp:137] Memory required for data: 26944
+I0521 17:54:04.201650 16676 layer_factory.hpp:77] Creating layer pool1
+I0521 17:54:04.201658 16676 net.cpp:84] Creating Layer pool1
+I0521 17:54:04.201663 16676 net.cpp:406] pool1 <- conv1
+I0521 17:54:04.201666 16676 net.cpp:380] pool1 -> pool1
+I0521 17:54:04.201706 16676 net.cpp:122] Setting up pool1
+I0521 17:54:04.201711 16676 net.cpp:129] Top shape: 1 16 5 17 (1360)
+I0521 17:54:04.201714 16676 net.cpp:137] Memory required for data: 32384
+I0521 17:54:04.201716 16676 layer_factory.hpp:77] Creating layer relu1
+I0521 17:54:04.201720 16676 net.cpp:84] Creating Layer relu1
+I0521 17:54:04.201722 16676 net.cpp:406] relu1 <- pool1
+I0521 17:54:04.201726 16676 net.cpp:367] relu1 -> pool1 (in-place)
+I0521 17:54:04.201823 16676 net.cpp:122] Setting up relu1
+I0521 17:54:04.201828 16676 net.cpp:129] Top shape: 1 16 5 17 (1360)
+I0521 17:54:04.201831 16676 net.cpp:137] Memory required for data: 37824
+I0521 17:54:04.201839 16676 layer_factory.hpp:77] Creating layer fc2-conv
+I0521 17:54:04.201845 16676 net.cpp:84] Creating Layer fc2-conv
+I0521 17:54:04.201848 16676 net.cpp:406] fc2-conv <- pool1
+I0521 17:54:04.201851 16676 net.cpp:380] fc2-conv -> fc2-conv
+I0521 17:54:04.203474 16676 net.cpp:122] Setting up fc2-conv
+I0521 17:54:04.203483 16676 net.cpp:129] Top shape: 1 16 1 1 (16)
+I0521 17:54:04.203486 16676 net.cpp:137] Memory required for data: 37888
+I0521 17:54:04.203492 16676 layer_factory.hpp:77] Creating layer relu2
+I0521 17:54:04.203497 16676 net.cpp:84] Creating Layer relu2
+I0521 17:54:04.203500 16676 net.cpp:406] relu2 <- fc2-conv
+I0521 17:54:04.203503 16676 net.cpp:367] relu2 -> fc2-conv (in-place)
+I0521 17:54:04.203595 16676 net.cpp:122] Setting up relu2
+I0521 17:54:04.203600 16676 net.cpp:129] Top shape: 1 16 1 1 (16)
+I0521 17:54:04.203603 16676 net.cpp:137] Memory required for data: 37952
+I0521 17:54:04.203605 16676 layer_factory.hpp:77] Creating layer drop2
+I0521 17:54:04.203609 16676 net.cpp:84] Creating Layer drop2
+I0521 17:54:04.203613 16676 net.cpp:406] drop2 <- fc2-conv
+I0521 17:54:04.203615 16676 net.cpp:367] drop2 -> fc2-conv (in-place)
+I0521 17:54:04.203635 16676 net.cpp:122] Setting up drop2
+I0521 17:54:04.203639 16676 net.cpp:129] Top shape: 1 16 1 1 (16)
+I0521 17:54:04.203642 16676 net.cpp:137] Memory required for data: 38016
+I0521 17:54:04.203644 16676 layer_factory.hpp:77] Creating layer fc3-conv
+I0521 17:54:04.203649 16676 net.cpp:84] Creating Layer fc3-conv
+I0521 17:54:04.203651 16676 net.cpp:406] fc3-conv <- fc2-conv
+I0521 17:54:04.203655 16676 net.cpp:380] fc3-conv -> fc3-conv
+I0521 17:54:04.204529 16676 net.cpp:122] Setting up fc3-conv
+I0521 17:54:04.204538 16676 net.cpp:129] Top shape: 1 2 1 1 (2)
+I0521 17:54:04.204541 16676 net.cpp:137] Memory required for data: 38024
+I0521 17:54:04.204547 16676 layer_factory.hpp:77] Creating layer prob
+I0521 17:54:04.204552 16676 net.cpp:84] Creating Layer prob
+I0521 17:54:04.204555 16676 net.cpp:406] prob <- fc3-conv
+I0521 17:54:04.204558 16676 net.cpp:380] prob -> prob
+I0521 17:54:04.205078 16676 net.cpp:122] Setting up prob
+I0521 17:54:04.205086 16676 net.cpp:129] Top shape: 1 2 1 1 (2)
+I0521 17:54:04.205090 16676 net.cpp:137] Memory required for data: 38032
+I0521 17:54:04.205092 16676 net.cpp:200] prob does not need backward computation.
+I0521 17:54:04.205096 16676 net.cpp:200] fc3-conv does not need backward computation.
+I0521 17:54:04.205097 16676 net.cpp:200] drop2 does not need backward computation.
+I0521 17:54:04.205101 16676 net.cpp:200] relu2 does not need backward computation.
+I0521 17:54:04.205102 16676 net.cpp:200] fc2-conv does not need backward computation.
+I0521 17:54:04.205104 16676 net.cpp:200] relu1 does not need backward computation.
+I0521 17:54:04.205107 16676 net.cpp:200] pool1 does not need backward computation.
+I0521 17:54:04.205109 16676 net.cpp:200] conv1 does not need backward computation.
+I0521 17:54:04.205112 16676 net.cpp:200] input does not need backward computation.
+I0521 17:54:04.205114 16676 net.cpp:242] This network produces output prob
+I0521 17:54:04.205119 16676 net.cpp:255] Network initialization done.
+W0521 17:54:04.205499 16676 _caffe.cpp:139] DEPRECATION WARNING - deprecated use of Python interface
+W0521 17:54:04.205507 16676 _caffe.cpp:140] Use this instead (with the named "weights" parameter):
+W0521 17:54:04.205508 16676 _caffe.cpp:142] Net('/home/work/qinhuan/mywork/license_plate/cascadeCNN_license_plate_detection/train_net/jobs/license_12cal/deploy.prototxt', 1, weights='/home/work/qinhuan/mywork/license_plate/cascadeCNN_license_plate_detection/train_net/jobs/license_12cal/license_12cal_iter_400000.caffemodel')
+I0521 17:54:04.205623 16676 upgrade_proto.cpp:67] Attempting to upgrade input file specified using deprecated input fields: /home/work/qinhuan/mywork/license_plate/cascadeCNN_license_plate_detection/train_net/jobs/license_12cal/deploy.prototxt
+I0521 17:54:04.205629 16676 upgrade_proto.cpp:70] Successfully upgraded file specified using deprecated input fields.
+W0521 17:54:04.205632 16676 upgrade_proto.cpp:72] Note that future Caffe releases will only support input layers and not input fields.
+I0521 17:54:04.205693 16676 net.cpp:51] Initializing net from parameters: 
+name: "license_12cal_deploy"
+state {
+  phase: TEST
+  level: 0
+}
+layer {
+  name: "input"
+  type: "Input"
+  top: "data"
+  input_param {
+    shape {
+      dim: 1
+      dim: 3
+      dim: 12
+      dim: 36
+    }
+  }
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 16
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.0001
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "pool1"
+  top: "pool1"
+}
+layer {
+  name: "fc2"
+  type: "InnerProduct"
+  bottom: "pool1"
+  top: "fc2"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: 128
+    weight_filler {
+      type: "gaussian"
+      std: 0.005
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "fc2"
+  top: "fc2"
+}
+layer {
+  name: "drop2"
+  type: "Dropout"
+  bottom: "fc2"
+  top: "fc2"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "fc3"
+  type: "InnerProduct"
+  bottom: "fc2"
+  top: "fc3"
+  param {
+    lr_mult: 1
+    decay_mult: 100
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: 45
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "prob"
+  type: "Softmax"
+  bottom: "fc3"
+  top: "prob"
+}
+I0521 17:54:04.205713 16676 layer_factory.hpp:77] Creating layer input
+I0521 17:54:04.205718 16676 net.cpp:84] Creating Layer input
+I0521 17:54:04.205721 16676 net.cpp:380] input -> data
+I0521 17:54:04.205747 16676 net.cpp:122] Setting up input
+I0521 17:54:04.205754 16676 net.cpp:129] Top shape: 1 3 12 36 (1296)
+I0521 17:54:04.205755 16676 net.cpp:137] Memory required for data: 5184
+I0521 17:54:04.205759 16676 layer_factory.hpp:77] Creating layer conv1
+I0521 17:54:04.205763 16676 net.cpp:84] Creating Layer conv1
+I0521 17:54:04.205766 16676 net.cpp:406] conv1 <- data
+I0521 17:54:04.205770 16676 net.cpp:380] conv1 -> conv1
+I0521 17:54:04.206948 16676 net.cpp:122] Setting up conv1
+I0521 17:54:04.206957 16676 net.cpp:129] Top shape: 1 16 10 34 (5440)
+I0521 17:54:04.206960 16676 net.cpp:137] Memory required for data: 26944
+I0521 17:54:04.206966 16676 layer_factory.hpp:77] Creating layer pool1
+I0521 17:54:04.206970 16676 net.cpp:84] Creating Layer pool1
+I0521 17:54:04.206974 16676 net.cpp:406] pool1 <- conv1
+I0521 17:54:04.206977 16676 net.cpp:380] pool1 -> pool1
+I0521 17:54:04.207012 16676 net.cpp:122] Setting up pool1
+I0521 17:54:04.207016 16676 net.cpp:129] Top shape: 1 16 5 17 (1360)
+I0521 17:54:04.207020 16676 net.cpp:137] Memory required for data: 32384
+I0521 17:54:04.207021 16676 layer_factory.hpp:77] Creating layer relu1
+I0521 17:54:04.207025 16676 net.cpp:84] Creating Layer relu1
+I0521 17:54:04.207027 16676 net.cpp:406] relu1 <- pool1
+I0521 17:54:04.207031 16676 net.cpp:367] relu1 -> pool1 (in-place)
+I0521 17:54:04.207124 16676 net.cpp:122] Setting up relu1
+I0521 17:54:04.207130 16676 net.cpp:129] Top shape: 1 16 5 17 (1360)
+I0521 17:54:04.207132 16676 net.cpp:137] Memory required for data: 37824
+I0521 17:54:04.207134 16676 layer_factory.hpp:77] Creating layer fc2
+I0521 17:54:04.207140 16676 net.cpp:84] Creating Layer fc2
+I0521 17:54:04.207142 16676 net.cpp:406] fc2 <- pool1
+I0521 17:54:04.207146 16676 net.cpp:380] fc2 -> fc2
+I0521 17:54:04.210750 16676 net.cpp:122] Setting up fc2
+I0521 17:54:04.210760 16676 net.cpp:129] Top shape: 1 128 (128)
+I0521 17:54:04.210762 16676 net.cpp:137] Memory required for data: 38336
+I0521 17:54:04.210768 16676 layer_factory.hpp:77] Creating layer relu2
+I0521 17:54:04.210777 16676 net.cpp:84] Creating Layer relu2
+I0521 17:54:04.210779 16676 net.cpp:406] relu2 <- fc2
+I0521 17:54:04.210783 16676 net.cpp:367] relu2 -> fc2 (in-place)
+I0521 17:54:04.210887 16676 net.cpp:122] Setting up relu2
+I0521 17:54:04.210892 16676 net.cpp:129] Top shape: 1 128 (128)
+I0521 17:54:04.210896 16676 net.cpp:137] Memory required for data: 38848
+I0521 17:54:04.210897 16676 layer_factory.hpp:77] Creating layer drop2
+I0521 17:54:04.210901 16676 net.cpp:84] Creating Layer drop2
+I0521 17:54:04.210903 16676 net.cpp:406] drop2 <- fc2
+I0521 17:54:04.210907 16676 net.cpp:367] drop2 -> fc2 (in-place)
+I0521 17:54:04.210928 16676 net.cpp:122] Setting up drop2
+I0521 17:54:04.210932 16676 net.cpp:129] Top shape: 1 128 (128)
+I0521 17:54:04.210934 16676 net.cpp:137] Memory required for data: 39360
+I0521 17:54:04.210937 16676 layer_factory.hpp:77] Creating layer fc3
+I0521 17:54:04.210942 16676 net.cpp:84] Creating Layer fc3
+I0521 17:54:04.210944 16676 net.cpp:406] fc3 <- fc2
+I0521 17:54:04.210947 16676 net.cpp:380] fc3 -> fc3
+I0521 17:54:04.211843 16676 net.cpp:122] Setting up fc3
+I0521 17:54:04.211851 16676 net.cpp:129] Top shape: 1 45 (45)
+I0521 17:54:04.211854 16676 net.cpp:137] Memory required for data: 39540
+I0521 17:54:04.211859 16676 layer_factory.hpp:77] Creating layer prob
+I0521 17:54:04.211864 16676 net.cpp:84] Creating Layer prob
+I0521 17:54:04.211868 16676 net.cpp:406] prob <- fc3
+I0521 17:54:04.211871 16676 net.cpp:380] prob -> prob
+I0521 17:54:04.212033 16676 net.cpp:122] Setting up prob
+I0521 17:54:04.212039 16676 net.cpp:129] Top shape: 1 45 (45)
+I0521 17:54:04.212041 16676 net.cpp:137] Memory required for data: 39720
+I0521 17:54:04.212044 16676 net.cpp:200] prob does not need backward computation.
+I0521 17:54:04.212046 16676 net.cpp:200] fc3 does not need backward computation.
+I0521 17:54:04.212049 16676 net.cpp:200] drop2 does not need backward computation.
+I0521 17:54:04.212051 16676 net.cpp:200] relu2 does not need backward computation.
+I0521 17:54:04.212054 16676 net.cpp:200] fc2 does not need backward computation.
+I0521 17:54:04.212056 16676 net.cpp:200] relu1 does not need backward computation.
+I0521 17:54:04.212059 16676 net.cpp:200] pool1 does not need backward computation.
+I0521 17:54:04.212060 16676 net.cpp:200] conv1 does not need backward computation.
+I0521 17:54:04.212064 16676 net.cpp:200] input does not need backward computation.
+I0521 17:54:04.212065 16676 net.cpp:242] This network produces output prob
+I0521 17:54:04.212069 16676 net.cpp:255] Network initialization done.
+I0521 17:54:04.212966 16676 net.cpp:744] Ignoring source layer data
+I0521 17:54:04.213034 16676 net.cpp:744] Ignoring source layer loss
+W0521 17:54:04.213057 16676 _caffe.cpp:139] DEPRECATION WARNING - deprecated use of Python interface
+W0521 17:54:04.213060 16676 _caffe.cpp:140] Use this instead (with the named "weights" parameter):
+W0521 17:54:04.213063 16676 _caffe.cpp:142] Net('/home/work/qinhuan/mywork/license_plate/cascadeCNN_license_plate_detection/train_net/jobs/license_24c/deploy.prototxt', 1, weights='/home/work/qinhuan/mywork/license_plate/cascadeCNN_license_plate_detection/train_net/jobs/license_24c/license_24c_iter_400000.caffemodel')
+I0521 17:54:04.213198 16676 upgrade_proto.cpp:67] Attempting to upgrade input file specified using deprecated input fields: /home/work/qinhuan/mywork/license_plate/cascadeCNN_license_plate_detection/train_net/jobs/license_24c/deploy.prototxt
+I0521 17:54:04.213204 16676 upgrade_proto.cpp:70] Successfully upgraded file specified using deprecated input fields.
+W0521 17:54:04.213207 16676 upgrade_proto.cpp:72] Note that future Caffe releases will only support input layers and not input fields.
+I0521 17:54:04.213269 16676 net.cpp:51] Initializing net from parameters: 
+name: "license_24c_deploy"
+state {
+  phase: TEST
+  level: 0
+}
+layer {
+  name: "input"
+  type: "Input"
+  top: "data"
+  input_param {
+    shape {
+      dim: 1
+      dim: 3
+      dim: 12
+      dim: 36
+    }
+  }
+}
+layer {
+  name: "conv1_1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1_1"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 64
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.0001
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "relu1_1"
+  type: "ReLU"
+  bottom: "conv1_1"
+  top: "conv1_1"
+}
+layer {
+  name: "conv1_2"
+  type: "Convolution"
+  bottom: "conv1_1"
+  top: "conv1_2"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 64
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.0001
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "relu1_2"
+  type: "ReLU"
+  bottom: "conv1_2"
+  top: "conv1_2"
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1_2"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "fc2"
+  type: "InnerProduct"
+  bottom: "pool1"
+  top: "fc2"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: 128
+    weight_filler {
+      type: "gaussian"
+      std: 0.005
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "fc2"
+  top: "fc2"
+}
+layer {
+  name: "drop2"
+  type: "Dropout"
+  bottom: "fc2"
+  top: "fc2"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "fc3"
+  type: "InnerProduct"
+  bottom: "fc2"
+  top: "fc3"
+  param {
+    lr_mult: 1
+    decay_mult: 100
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: 2
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "prob"
+  type: "Softmax"
+  bottom: "fc3"
+  top: "prob"
+}
+I0521 17:54:04.213294 16676 layer_factory.hpp:77] Creating layer input
+I0521 17:54:04.213299 16676 net.cpp:84] Creating Layer input
+I0521 17:54:04.213304 16676 net.cpp:380] input -> data
+I0521 17:54:04.213331 16676 net.cpp:122] Setting up input
+I0521 17:54:04.213335 16676 net.cpp:129] Top shape: 1 3 12 36 (1296)
+I0521 17:54:04.213338 16676 net.cpp:137] Memory required for data: 5184
+I0521 17:54:04.213340 16676 layer_factory.hpp:77] Creating layer conv1_1
+I0521 17:54:04.213346 16676 net.cpp:84] Creating Layer conv1_1
+I0521 17:54:04.213349 16676 net.cpp:406] conv1_1 <- data
+I0521 17:54:04.213352 16676 net.cpp:380] conv1_1 -> conv1_1
+I0521 17:54:04.215394 16676 net.cpp:122] Setting up conv1_1
+I0521 17:54:04.215404 16676 net.cpp:129] Top shape: 1 64 12 36 (27648)
+I0521 17:54:04.215406 16676 net.cpp:137] Memory required for data: 115776
+I0521 17:54:04.215412 16676 layer_factory.hpp:77] Creating layer relu1_1
+I0521 17:54:04.215417 16676 net.cpp:84] Creating Layer relu1_1
+I0521 17:54:04.215420 16676 net.cpp:406] relu1_1 <- conv1_1
+I0521 17:54:04.215423 16676 net.cpp:367] relu1_1 -> conv1_1 (in-place)
+I0521 17:54:04.215893 16676 net.cpp:122] Setting up relu1_1
+I0521 17:54:04.215900 16676 net.cpp:129] Top shape: 1 64 12 36 (27648)
+I0521 17:54:04.215903 16676 net.cpp:137] Memory required for data: 226368
+I0521 17:54:04.215905 16676 layer_factory.hpp:77] Creating layer conv1_2
+I0521 17:54:04.215911 16676 net.cpp:84] Creating Layer conv1_2
+I0521 17:54:04.215914 16676 net.cpp:406] conv1_2 <- conv1_1
+I0521 17:54:04.215919 16676 net.cpp:380] conv1_2 -> conv1_2
+I0521 17:54:04.217051 16676 net.cpp:122] Setting up conv1_2
+I0521 17:54:04.217058 16676 net.cpp:129] Top shape: 1 64 12 36 (27648)
+I0521 17:54:04.217061 16676 net.cpp:137] Memory required for data: 336960
+I0521 17:54:04.217067 16676 layer_factory.hpp:77] Creating layer relu1_2
+I0521 17:54:04.217072 16676 net.cpp:84] Creating Layer relu1_2
+I0521 17:54:04.217074 16676 net.cpp:406] relu1_2 <- conv1_2
+I0521 17:54:04.217077 16676 net.cpp:367] relu1_2 -> conv1_2 (in-place)
+I0521 17:54:04.217553 16676 net.cpp:122] Setting up relu1_2
+I0521 17:54:04.217561 16676 net.cpp:129] Top shape: 1 64 12 36 (27648)
+I0521 17:54:04.217564 16676 net.cpp:137] Memory required for data: 447552
+I0521 17:54:04.217571 16676 layer_factory.hpp:77] Creating layer pool1
+I0521 17:54:04.217574 16676 net.cpp:84] Creating Layer pool1
+I0521 17:54:04.217577 16676 net.cpp:406] pool1 <- conv1_2
+I0521 17:54:04.217581 16676 net.cpp:380] pool1 -> pool1
+I0521 17:54:04.217617 16676 net.cpp:122] Setting up pool1
+I0521 17:54:04.217622 16676 net.cpp:129] Top shape: 1 64 6 18 (6912)
+I0521 17:54:04.217624 16676 net.cpp:137] Memory required for data: 475200
+I0521 17:54:04.217627 16676 layer_factory.hpp:77] Creating layer fc2
+I0521 17:54:04.217631 16676 net.cpp:84] Creating Layer fc2
+I0521 17:54:04.217633 16676 net.cpp:406] fc2 <- pool1
+I0521 17:54:04.217638 16676 net.cpp:380] fc2 -> fc2
+I0521 17:54:04.232916 16676 net.cpp:122] Setting up fc2
+I0521 17:54:04.232928 16676 net.cpp:129] Top shape: 1 128 (128)
+I0521 17:54:04.232931 16676 net.cpp:137] Memory required for data: 475712
+I0521 17:54:04.232938 16676 layer_factory.hpp:77] Creating layer relu2
+I0521 17:54:04.232942 16676 net.cpp:84] Creating Layer relu2
+I0521 17:54:04.232945 16676 net.cpp:406] relu2 <- fc2
+I0521 17:54:04.232949 16676 net.cpp:367] relu2 -> fc2 (in-place)
+I0521 17:54:04.233064 16676 net.cpp:122] Setting up relu2
+I0521 17:54:04.233070 16676 net.cpp:129] Top shape: 1 128 (128)
+I0521 17:54:04.233073 16676 net.cpp:137] Memory required for data: 476224
+I0521 17:54:04.233075 16676 layer_factory.hpp:77] Creating layer drop2
+I0521 17:54:04.233080 16676 net.cpp:84] Creating Layer drop2
+I0521 17:54:04.233083 16676 net.cpp:406] drop2 <- fc2
+I0521 17:54:04.233086 16676 net.cpp:367] drop2 -> fc2 (in-place)
+I0521 17:54:04.233108 16676 net.cpp:122] Setting up drop2
+I0521 17:54:04.233111 16676 net.cpp:129] Top shape: 1 128 (128)
+I0521 17:54:04.233114 16676 net.cpp:137] Memory required for data: 476736
+I0521 17:54:04.233116 16676 layer_factory.hpp:77] Creating layer fc3
+I0521 17:54:04.233120 16676 net.cpp:84] Creating Layer fc3
+I0521 17:54:04.233122 16676 net.cpp:406] fc3 <- fc2
+I0521 17:54:04.233126 16676 net.cpp:380] fc3 -> fc3
+I0521 17:54:04.233217 16676 net.cpp:122] Setting up fc3
+I0521 17:54:04.233220 16676 net.cpp:129] Top shape: 1 2 (2)
+I0521 17:54:04.233223 16676 net.cpp:137] Memory required for data: 476744
+I0521 17:54:04.233227 16676 layer_factory.hpp:77] Creating layer prob
+I0521 17:54:04.233230 16676 net.cpp:84] Creating Layer prob
+I0521 17:54:04.233233 16676 net.cpp:406] prob <- fc3
+I0521 17:54:04.233237 16676 net.cpp:380] prob -> prob
+I0521 17:54:04.233383 16676 net.cpp:122] Setting up prob
+I0521 17:54:04.233389 16676 net.cpp:129] Top shape: 1 2 (2)
+I0521 17:54:04.233392 16676 net.cpp:137] Memory required for data: 476752
+I0521 17:54:04.233394 16676 net.cpp:200] prob does not need backward computation.
+I0521 17:54:04.233397 16676 net.cpp:200] fc3 does not need backward computation.
+I0521 17:54:04.233399 16676 net.cpp:200] drop2 does not need backward computation.
+I0521 17:54:04.233402 16676 net.cpp:200] relu2 does not need backward computation.
+I0521 17:54:04.233403 16676 net.cpp:200] fc2 does not need backward computation.
+I0521 17:54:04.233407 16676 net.cpp:200] pool1 does not need backward computation.
+I0521 17:54:04.233408 16676 net.cpp:200] relu1_2 does not need backward computation.
+I0521 17:54:04.233410 16676 net.cpp:200] conv1_2 does not need backward computation.
+I0521 17:54:04.233413 16676 net.cpp:200] relu1_1 does not need backward computation.
+I0521 17:54:04.233415 16676 net.cpp:200] conv1_1 does not need backward computation.
+I0521 17:54:04.233418 16676 net.cpp:200] input does not need backward computation.
+I0521 17:54:04.233420 16676 net.cpp:242] This network produces output prob
+I0521 17:54:04.233425 16676 net.cpp:255] Network initialization done.
+I0521 17:54:04.237479 16676 net.cpp:744] Ignoring source layer loss
+W0521 17:54:04.237524 16676 _caffe.cpp:139] DEPRECATION WARNING - deprecated use of Python interface
+W0521 17:54:04.237526 16676 _caffe.cpp:140] Use this instead (with the named "weights" parameter):
+W0521 17:54:04.237529 16676 _caffe.cpp:142] Net('/home/work/qinhuan/mywork/license_plate/cascadeCNN_license_plate_detection/train_net/jobs/license_24cal/deploy.prototxt', 1, weights='/home/work/qinhuan/mywork/license_plate/cascadeCNN_license_plate_detection/train_net/jobs/license_24cal/license_24cal_iter_400000.caffemodel')
+I0521 17:54:04.237660 16676 upgrade_proto.cpp:67] Attempting to upgrade input file specified using deprecated input fields: /home/work/qinhuan/mywork/license_plate/cascadeCNN_license_plate_detection/train_net/jobs/license_24cal/deploy.prototxt
+I0521 17:54:04.237666 16676 upgrade_proto.cpp:70] Successfully upgraded file specified using deprecated input fields.
+W0521 17:54:04.237669 16676 upgrade_proto.cpp:72] Note that future Caffe releases will only support input layers and not input fields.
+I0521 17:54:04.237730 16676 net.cpp:51] Initializing net from parameters: 
+name: "license_24cal_deploy"
+state {
+  phase: TEST
+  level: 0
+}
+layer {
+  name: "input"
+  type: "Input"
+  top: "data"
+  input_param {
+    shape {
+      dim: 1
+      dim: 3
+      dim: 12
+      dim: 36
+    }
+  }
+}
+layer {
+  name: "conv1_1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1_1"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    weight_filler {
+      type: "gaussian"
+      std: 0.0001
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "relu1_1"
+  type: "ReLU"
+  bottom: "conv1_1"
+  top: "conv1_1"
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1_1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+    pad: 1
+  }
+}
+layer {
+  name: "fc2"
+  type: "InnerProduct"
+  bottom: "pool1"
+  top: "fc2"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: 64
+    weight_filler {
+      type: "gaussian"
+      std: 0.005
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "fc2"
+  top: "fc2"
+}
+layer {
+  name: "drop2"
+  type: "Dropout"
+  bottom: "fc2"
+  top: "fc2"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "fc3"
+  type: "InnerProduct"
+  bottom: "fc2"
+  top: "fc3"
+  param {
+    lr_mult: 1
+    decay_mult: 100
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: 45
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layer {
+  name: "prob"
+  type: "Softmax"
+  bottom: "fc3"
+  top: "prob"
+}
+I0521 17:54:04.237751 16676 layer_factory.hpp:77] Creating layer input
+I0521 17:54:04.237757 16676 net.cpp:84] Creating Layer input
+I0521 17:54:04.237761 16676 net.cpp:380] input -> data
+I0521 17:54:04.237818 16676 net.cpp:122] Setting up input
+I0521 17:54:04.237824 16676 net.cpp:129] Top shape: 1 3 12 36 (1296)
+I0521 17:54:04.237826 16676 net.cpp:137] Memory required for data: 5184
+I0521 17:54:04.237829 16676 layer_factory.hpp:77] Creating layer conv1_1
+I0521 17:54:04.237835 16676 net.cpp:84] Creating Layer conv1_1
+I0521 17:54:04.237838 16676 net.cpp:406] conv1_1 <- data
+I0521 17:54:04.237843 16676 net.cpp:380] conv1_1 -> conv1_1
+I0521 17:54:04.238926 16676 net.cpp:122] Setting up conv1_1
+I0521 17:54:04.238936 16676 net.cpp:129] Top shape: 1 32 12 36 (13824)
+I0521 17:54:04.238940 16676 net.cpp:137] Memory required for data: 60480
+I0521 17:54:04.238945 16676 layer_factory.hpp:77] Creating layer relu1_1
+I0521 17:54:04.238950 16676 net.cpp:84] Creating Layer relu1_1
+I0521 17:54:04.238953 16676 net.cpp:406] relu1_1 <- conv1_1
+I0521 17:54:04.238956 16676 net.cpp:367] relu1_1 -> conv1_1 (in-place)
+I0521 17:54:04.239051 16676 net.cpp:122] Setting up relu1_1
+I0521 17:54:04.239056 16676 net.cpp:129] Top shape: 1 32 12 36 (13824)
+I0521 17:54:04.239059 16676 net.cpp:137] Memory required for data: 115776
+I0521 17:54:04.239061 16676 layer_factory.hpp:77] Creating layer pool1
+I0521 17:54:04.239065 16676 net.cpp:84] Creating Layer pool1
+I0521 17:54:04.239068 16676 net.cpp:406] pool1 <- conv1_1
+I0521 17:54:04.239071 16676 net.cpp:380] pool1 -> pool1
+I0521 17:54:04.239107 16676 net.cpp:122] Setting up pool1
+I0521 17:54:04.239114 16676 net.cpp:129] Top shape: 1 32 7 19 (4256)
+I0521 17:54:04.239117 16676 net.cpp:137] Memory required for data: 132800
+I0521 17:54:04.239120 16676 layer_factory.hpp:77] Creating layer fc2
+I0521 17:54:04.239125 16676 net.cpp:84] Creating Layer fc2
+I0521 17:54:04.239126 16676 net.cpp:406] fc2 <- pool1
+I0521 17:54:04.239130 16676 net.cpp:380] fc2 -> fc2
+I0521 17:54:04.243649 16676 net.cpp:122] Setting up fc2
+I0521 17:54:04.243655 16676 net.cpp:129] Top shape: 1 64 (64)
+I0521 17:54:04.243657 16676 net.cpp:137] Memory required for data: 133056
+I0521 17:54:04.243662 16676 layer_factory.hpp:77] Creating layer relu2
+I0521 17:54:04.243666 16676 net.cpp:84] Creating Layer relu2
+I0521 17:54:04.243669 16676 net.cpp:406] relu2 <- fc2
+I0521 17:54:04.243671 16676 net.cpp:367] relu2 -> fc2 (in-place)
+I0521 17:54:04.244163 16676 net.cpp:122] Setting up relu2
+I0521 17:54:04.244170 16676 net.cpp:129] Top shape: 1 64 (64)
+I0521 17:54:04.244174 16676 net.cpp:137] Memory required for data: 133312
+I0521 17:54:04.244175 16676 layer_factory.hpp:77] Creating layer drop2
+I0521 17:54:04.244180 16676 net.cpp:84] Creating Layer drop2
+I0521 17:54:04.244182 16676 net.cpp:406] drop2 <- fc2
+I0521 17:54:04.244186 16676 net.cpp:367] drop2 -> fc2 (in-place)
+I0521 17:54:04.244209 16676 net.cpp:122] Setting up drop2
+I0521 17:54:04.244212 16676 net.cpp:129] Top shape: 1 64 (64)
+I0521 17:54:04.244215 16676 net.cpp:137] Memory required for data: 133568
+I0521 17:54:04.244216 16676 layer_factory.hpp:77] Creating layer fc3
+I0521 17:54:04.244220 16676 net.cpp:84] Creating Layer fc3
+I0521 17:54:04.244222 16676 net.cpp:406] fc3 <- fc2
+I0521 17:54:04.244226 16676 net.cpp:380] fc3 -> fc3
+I0521 17:54:04.244381 16676 net.cpp:122] Setting up fc3
+I0521 17:54:04.244387 16676 net.cpp:129] Top shape: 1 45 (45)
+I0521 17:54:04.244390 16676 net.cpp:137] Memory required for data: 133748
+I0521 17:54:04.244395 16676 layer_factory.hpp:77] Creating layer prob
+I0521 17:54:04.244398 16676 net.cpp:84] Creating Layer prob
+I0521 17:54:04.244401 16676 net.cpp:406] prob <- fc3
+I0521 17:54:04.244405 16676 net.cpp:380] prob -> prob
+I0521 17:54:04.244552 16676 net.cpp:122] Setting up prob
+I0521 17:54:04.244559 16676 net.cpp:129] Top shape: 1 45 (45)
+I0521 17:54:04.244560 16676 net.cpp:137] Memory required for data: 133928
+I0521 17:54:04.244563 16676 net.cpp:200] prob does not need backward computation.
+I0521 17:54:04.244565 16676 net.cpp:200] fc3 does not need backward computation.
+I0521 17:54:04.244567 16676 net.cpp:200] drop2 does not need backward computation.
+I0521 17:54:04.244570 16676 net.cpp:200] relu2 does not need backward computation.
+I0521 17:54:04.244572 16676 net.cpp:200] fc2 does not need backward computation.
+I0521 17:54:04.244575 16676 net.cpp:200] pool1 does not need backward computation.
+I0521 17:54:04.244577 16676 net.cpp:200] relu1_1 does not need backward computation.
+I0521 17:54:04.244580 16676 net.cpp:200] conv1_1 does not need backward computation.
+I0521 17:54:04.244581 16676 net.cpp:200] input does not need backward computation.
+I0521 17:54:04.244583 16676 net.cpp:242] This network produces output prob
+I0521 17:54:04.244588 16676 net.cpp:255] Network initialization done.
+I0521 17:54:04.245553 16676 net.cpp:744] Ignoring source layer data
+I0521 17:54:04.245653 16676 net.cpp:744] Ignoring source layer loss
+/home/work/qinhuan/mywork/license_plate/cascadeCNN_license_plate_detection/preprocess_data/lib/face_detection_functions.py:792: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
+  cropped_caffe_img = img_forward[y1:y2, x1:x2]     # crop image
+/home/work/qinhuan/mywork/license_plate/cascadeCNN_license_plate_detection/preprocess_data/lib/face_detection_functions.py:859: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
+  cropped_caffe_img = img_forward[original_y1:original_y2, original_x1:original_x2] # crop image
+create_negative_48c.py:160: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
+  pos_sample = img_crop[rec[1]:rec[3], rec[0]:rec[2]]
+create_negative_48c.py:149: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
+  neg_sample = img_crop[rec[1]:rec[3], rec[0]:rec[2]]
+14065
+Processing image : 9
+Processing image : 19
+Processing image : 29
+Processing image : 39
+Processing image : 49
+Processing image : 59
+Processing image : 69
+Processing image : 79
+Processing image : 89
+Processing image : 99
+Processing image : 109
+Processing image : 119
+Processing image : 129
+Processing image : 139
+Processing image : 149
+Processing image : 159
+Processing image : 169
+Processing image : 179
+Processing image : 189
+Processing image : 199
+Processing image : 209
+Processing image : 219
+Processing image : 229
+Processing image : 239
+Processing image : 249
+Processing image : 259
+Processing image : 269
+Processing image : 279
+Processing image : 289
+Processing image : 299
+Processing image : 309
+Processing image : 319
+Processing image : 329
+Processing image : 339
+Processing image : 349
+Processing image : 359
+Processing image : 369
+Processing image : 379
+Processing image : 389
+Processing image : 399
+Processing image : 409
+Processing image : 419
+Processing image : 429
+Processing image : 439
+Processing image : 449
+Processing image : 459
+Processing image : 469
+Processing image : 479
+Processing image : 489
+Processing image : 499
+Processing image : 509
+Processing image : 519
+Processing image : 529
+Processing image : 539
+Processing image : 549
+Processing image : 559
+Processing image : 569
+Processing image : 579
+Processing image : 589
+Processing image : 599
+Processing image : 609
+Processing image : 619
+Processing image : 629
+Processing image : 639
+Processing image : 649
+Processing image : 659
+Processing image : 669
+Processing image : 679
+Processing image : 689
+Processing image : 699
+Processing image : 709
+Processing image : 719
+Processing image : 729
+Processing image : 739
+Processing image : 749
+Processing image : 759
+Processing image : 769
+Processing image : 779
+Processing image : 789
+Processing image : 799
+Processing image : 809
+Processing image : 819
+Processing image : 829
+Processing image : 839
+Processing image : 849
+Processing image : 859
+Processing image : 869
+Processing image : 879
+Processing image : 889
+Processing image : 899
+Processing image : 909
+Processing image : 919
+Processing image : 929
+Processing image : 939
+Processing image : 949
+Processing image : 959
+Processing image : 969
+Processing image : 979
+Processing image : 989
+Processing image : 999
+Processing image : 1009
+Processing image : 1019
+Processing image : 1029
+Processing image : 1039
+Processing image : 1049
+Processing image : 1059
+Processing image : 1069
+Processing image : 1079
+Processing image : 1089
+Processing image : 1099
+Processing image : 1109
+Processing image : 1119
+Processing image : 1129
+Processing image : 1139
+Processing image : 1149
+Processing image : 1159
+Processing image : 1169
+Processing image : 1179
+Processing image : 1189
+Processing image : 1199
+Processing image : 1209
+Processing image : 1219
+Processing image : 1229
+Processing image : 1239
+Processing image : 1249
+Processing image : 1259
+Processing image : 1269
+Processing image : 1279
+Processing image : 1289
+Processing image : 1299
+Processing image : 1309
+Processing image : 1319
+Processing image : 1329
+Processing image : 1339
+Processing image : 1349
+Processing image : 1359
+Processing image : 1369
+Processing image : 1379
+Processing image : 1389
+Processing image : 1399
+Processing image : 1409
+Processing image : 1419
+Processing image : 1429
+Processing image : 1439
+Processing image : 1449
+Processing image : 1459
+Processing image : 1469
+Processing image : 1479
+Processing image : 1489
+Processing image : 1499
+Processing image : 1509
+Processing image : 1519
+Processing image : 1529
+Processing image : 1539
+Processing image : 1549
+Processing image : 1559
+Processing image : 1569
+Processing image : 1579
+Processing image : 1589
+Processing image : 1599
+Processing image : 1609
+Processing image : 1619
+Processing image : 1629
+Processing image : 1639
+Processing image : 1649
+Processing image : 1659
+Processing image : 1669
+Processing image : 1679
+Processing image : 1689
+Processing image : 1699
+Processing image : 1709
+Processing image : 1719
+Processing image : 1729
+Processing image : 1739
+Processing image : 1749
+Processing image : 1759
+Processing image : 1769
+Processing image : 1779
+Processing image : 1789
+Processing image : 1799
+Processing image : 1809
+Processing image : 1819
+Processing image : 1829
+Processing image : 1839
+Processing image : 1849
+Processing image : 1859
+Processing image : 1869
+Processing image : 1879
+Processing image : 1889
+Processing image : 1899
+Processing image : 1909
+Processing image : 1919
+Processing image : 1929
+Processing image : 1939
+Processing image : 1949
+Processing image : 1959
+Processing image : 1969
+Processing image : 1979
+Processing image : 1989
+Processing image : 1999
+Processing image : 2009
+Processing image : 2019
+Processing image : 2029
+Processing image : 2039
+Processing image : 2049
+Processing image : 2059
+Processing image : 2069
+Processing image : 2079
+Processing image : 2089
+Processing image : 2099
+Processing image : 2109
+Processing image : 2119
+Processing image : 2129
+Processing image : 2139
+Processing image : 2149
+Processing image : 2159
+Processing image : 2169
+Processing image : 2179
+Processing image : 2189
+Processing image : 2199
+Processing image : 2209
+Processing image : 2219
+Processing image : 2229
+Processing image : 2239
+Processing image : 2249
+Processing image : 2259
+Processing image : 2269
+Processing image : 2279
+Processing image : 2289
+Processing image : 2299
+Processing image : 2309
+Processing image : 2319
+Processing image : 2329
+Processing image : 2339
+Processing image : 2349
+Processing image : 2359
+Processing image : 2369
+Processing image : 2379
+Processing image : 2389
+Processing image : 2399
+Processing image : 2409
+Processing image : 2419
+Processing image : 2429
+Processing image : 2439
+Processing image : 2449
+Processing image : 2459
+Processing image : 2469
+Processing image : 2479
+Processing image : 2489
+Processing image : 2499
+Processing image : 2509
+Processing image : 2519
+Processing image : 2529
+Processing image : 2539
+Processing image : 2549
+Processing image : 2559
+Processing image : 2569
+Processing image : 2579
+Processing image : 2589
+Processing image : 2599
+Processing image : 2609
+Processing image : 2619
+Processing image : 2629
+Processing image : 2639
+Processing image : 2649
+Processing image : 2659
+Processing image : 2669
+Processing image : 2679
+Processing image : 2689
+Processing image : 2699
+Processing image : 2709
+Processing image : 2719
+Processing image : 2729
+Processing image : 2739
+Processing image : 2749
+Processing image : 2759
+Processing image : 2769
+Processing image : 2779
+Processing image : 2789
+Processing image : 2799
+Processing image : 2809
+Processing image : 2819
+Processing image : 2829
+Processing image : 2839
+Processing image : 2849
+Processing image : 2859
+Processing image : 2869
+Processing image : 2879
+Processing image : 2889
+Processing image : 2899
+Processing image : 2909
+Processing image : 2919
+Processing image : 2929
+Processing image : 2939
+Processing image : 2949
+Processing image : 2959
+Processing image : 2969
+Processing image : 2979
+Processing image : 2989
+Processing image : 2999
+Processing image : 3009
+Processing image : 3019
+Processing image : 3029
+Processing image : 3039
+Processing image : 3049
+Processing image : 3059
+Processing image : 3069
+Processing image : 3079
+Processing image : 3089
+Processing image : 3099
+Processing image : 3109
+Processing image : 3119
+Processing image : 3129
+Processing image : 3139
+Processing image : 3149
+Processing image : 3159
+Processing image : 3169
+Processing image : 3179
+Processing image : 3189
+Processing image : 3199
+Processing image : 3209
+Processing image : 3219
+Processing image : 3229
+Processing image : 3239
+Processing image : 3249
+Processing image : 3259
+Processing image : 3269
+Processing image : 3279
+Processing image : 3289
+Processing image : 3299
+Processing image : 3309
+Processing image : 3319
+Processing image : 3329
+Processing image : 3339
+Processing image : 3349
+Processing image : 3359
+Processing image : 3369
+Processing image : 3379
+Processing image : 3389
+Processing image : 3399
+Processing image : 3409
+Processing image : 3419
+Processing image : 3429
+Processing image : 3439
+Processing image : 3449
+Processing image : 3459
+Processing image : 3469
+Processing image : 3479
+Processing image : 3489
+Processing image : 3499
+Processing image : 3509
+Processing image : 3519
+Processing image : 3529
+Processing image : 3539
+Processing image : 3549
+Processing image : 3559
+Processing image : 3569
+Processing image : 3579
+Processing image : 3589
+Processing image : 3599
+Processing image : 3609
+Processing image : 3619
+Processing image : 3629
+Processing image : 3639
+Processing image : 3649
+Processing image : 3659
+Processing image : 3669
+Processing image : 3679
+Processing image : 3689
+Processing image : 3699
+Processing image : 3709
+Processing image : 3719
+Processing image : 3729
+Processing image : 3739
+Processing image : 3749
+Processing image : 3759
+Processing image : 3769
+Processing image : 3779
+Processing image : 3789
+Processing image : 3799
+Processing image : 3809
+Processing image : 3819
+Processing image : 3829
+Processing image : 3839
+Processing image : 3849
+Processing image : 3859
+Processing image : 3869
+Processing image : 3879
+Processing image : 3889
+Processing image : 3899
+Processing image : 3909
+Processing image : 3919
+Processing image : 3929
+Processing image : 3939
+Processing image : 3949
+Processing image : 3959
+Processing image : 3969
+Processing image : 3979
+Processing image : 3989
+Processing image : 3999
+Processing image : 4009
+Processing image : 4019
+Processing image : 4029
+Processing image : 4039
+Processing image : 4049
+Processing image : 4059
+Processing image : 4069
+Processing image : 4079
+Processing image : 4089
+Processing image : 4099
+Processing image : 4109
+Processing image : 4119
+Processing image : 4129
+Processing image : 4139
+Processing image : 4149
+Processing image : 4159
+Processing image : 4169
+Processing image : 4179
+Processing image : 4189
+Processing image : 4199
+Processing image : 4209
+Processing image : 4219
+Processing image : 4229
+Processing image : 4239
+Processing image : 4249
+Processing image : 4259
+Processing image : 4269
+Processing image : 4279
+Processing image : 4289
+Processing image : 4299
+Processing image : 4309
+Processing image : 4319
+Processing image : 4329
+Processing image : 4339
+Processing image : 4349
+Processing image : 4359
+Processing image : 4369
+Processing image : 4379
+Processing image : 4389
+Processing image : 4399
+Processing image : 4409
+Processing image : 4419
+Processing image : 4429
+Processing image : 4439
+Processing image : 4449
+Processing image : 4459
+Processing image : 4469
+Processing image : 4479
+Processing image : 4489
+Processing image : 4499
+Processing image : 4509
+Processing image : 4519
+Processing image : 4529
+Processing image : 4539
+Processing image : 4549
+Processing image : 4559
+Processing image : 4569
+Processing image : 4579
+Processing image : 4589
+Processing image : 4599
+Processing image : 4609
+Processing image : 4619
+Processing image : 4629
+Processing image : 4639
+Processing image : 4649
+Processing image : 4659
+Processing image : 4669
+Processing image : 4679
+Processing image : 4689
+Processing image : 4699
+Processing image : 4709
+Processing image : 4719
+Processing image : 4729
+Processing image : 4739
+Processing image : 4749
+Processing image : 4759
+Processing image : 4769
+Processing image : 4779
+Processing image : 4789
+Processing image : 4799
+Processing image : 4809
+Processing image : 4819
+Processing image : 4829
+Processing image : 4839
+Processing image : 4849
+Processing image : 4859
+Processing image : 4869
+Processing image : 4879
+Processing image : 4889
+Processing image : 4899
+Processing image : 4909
+Processing image : 4919
+Processing image : 4929
+Processing image : 4939
+Processing image : 4949
+Processing image : 4959
+Processing image : 4969
+Processing image : 4979
+Processing image : 4989
+Processing image : 4999
+Processing image : 5009
+Processing image : 5019
+Processing image : 5029
+Processing image : 5039
+Processing image : 5049
+Processing image : 5059
+Processing image : 5069
+Processing image : 5079
+Processing image : 5089
+Processing image : 5099
+Processing image : 5109
+Processing image : 5119
+Processing image : 5129
+Processing image : 5139
+Processing image : 5149
+Processing image : 5159
+Processing image : 5169
+Processing image : 5179
+Processing image : 5189
+Processing image : 5199
+Processing image : 5209
+Processing image : 5219
+Processing image : 5229
+Processing image : 5239
+Processing image : 5249
+Processing image : 5259
+Processing image : 5269
+Processing image : 5279
+Processing image : 5289
+Processing image : 5299
+Processing image : 5309
+Processing image : 5319
+Processing image : 5329
+Processing image : 5339
+Processing image : 5349
+Processing image : 5359
+Processing image : 5369
+Processing image : 5379
+Processing image : 5389
+Processing image : 5399
+Processing image : 5409
+Processing image : 5419
+Processing image : 5429
+Processing image : 5439
+Processing image : 5449
+Processing image : 5459
+Processing image : 5469
+Processing image : 5479
+Processing image : 5489
+Processing image : 5499
+Processing image : 5509
+Processing image : 5519
+Processing image : 5529
+Processing image : 5539
+Processing image : 5549
+Processing image : 5559
+Processing image : 5569
+Processing image : 5579
+Processing image : 5589
+Processing image : 5599
+Processing image : 5609
+Processing image : 5619
+Processing image : 5629
+Processing image : 5639
+Processing image : 5649
+Processing image : 5659
+Processing image : 5669
+Processing image : 5679
+Processing image : 5689
+Processing image : 5699
+Processing image : 5709
+Processing image : 5719
+Processing image : 5729
+Processing image : 5739
+Processing image : 5749
+Processing image : 5759
+Processing image : 5769
+Processing image : 5779
+Processing image : 5789
+Processing image : 5799
+Processing image : 5809
+Processing image : 5819
+Processing image : 5829
+Processing image : 5839
+Processing image : 5849
+Processing image : 5859
+Processing image : 5869
+Processing image : 5879
+Processing image : 5889
+Processing image : 5899
+Processing image : 5909
+Processing image : 5919
+Processing image : 5929
+Processing image : 5939
+Processing image : 5949
+Processing image : 5959
+Processing image : 5969
+Processing image : 5979
+Processing image : 5989
+Processing image : 5999
+Processing image : 6009
+Processing image : 6019
+Processing image : 6029
+Processing image : 6039
+Processing image : 6049
+Processing image : 6059
+Processing image : 6069
+Processing image : 6079
+Processing image : 6089
+Processing image : 6099
+Processing image : 6109
+Processing image : 6119
+Processing image : 6129
+Processing image : 6139
+Processing image : 6149
+Processing image : 6159
+Processing image : 6169
+Processing image : 6179
+Processing image : 6189
+Processing image : 6199
+Processing image : 6209
+Processing image : 6219
+Processing image : 6229
+Processing image : 6239
+Processing image : 6249
+Processing image : 6259
+Processing image : 6269
+Processing image : 6279
+Processing image : 6289
+Processing image : 6299
+Processing image : 6309
+Processing image : 6319
+Processing image : 6329
+Processing image : 6339
+Processing image : 6349
+Processing image : 6359
+Processing image : 6369
+Processing image : 6379
+Processing image : 6389
+Processing image : 6399
+Processing image : 6409
+Processing image : 6419
+Processing image : 6429
+Processing image : 6439
+Processing image : 6449
+Processing image : 6459
+Processing image : 6469
+Processing image : 6479
+Processing image : 6489
+Processing image : 6499
+Processing image : 6509
+Processing image : 6519
+Processing image : 6529
+Processing image : 6539
+Processing image : 6549
+Processing image : 6559
+Processing image : 6569
+Processing image : 6579
+Processing image : 6589
+Processing image : 6599
+Processing image : 6609
+Processing image : 6619
+Processing image : 6629
+Processing image : 6639
+Processing image : 6649
+Processing image : 6659
+Processing image : 6669
+Processing image : 6679
+Processing image : 6689
+Processing image : 6699
+Processing image : 6709
+Processing image : 6719
+Processing image : 6729
+Processing image : 6739
+Processing image : 6749
+Processing image : 6759
+Processing image : 6769
+Processing image : 6779
+Processing image : 6789
+Processing image : 6799
+Processing image : 6809
+Processing image : 6819
+Processing image : 6829
+Processing image : 6839
+Processing image : 6849
+Processing image : 6859
+Processing image : 6869
+Processing image : 6879
+Processing image : 6889
+Processing image : 6899
+Processing image : 6909
+Processing image : 6919
+Processing image : 6929
+Processing image : 6939
+Processing image : 6949
+Processing image : 6959
+Processing image : 6969
+Processing image : 6979
+Processing image : 6989
+Processing image : 6999
+Processing image : 7009
+Processing image : 7019
+Processing image : 7029
+Processing image : 7039
+Processing image : 7049
+Processing image : 7059
+Processing image : 7069
+Processing image : 7079
+Processing image : 7089
+Processing image : 7099
+Processing image : 7109
+Processing image : 7119
+Processing image : 7129
+Processing image : 7139
+Processing image : 7149
+Processing image : 7159
+Processing image : 7169
+Processing image : 7179
+Processing image : 7189
+Processing image : 7199
+Processing image : 7209
+Processing image : 7219
+Processing image : 7229
+Processing image : 7239
+Processing image : 7249
+Processing image : 7259
+Processing image : 7269
+Processing image : 7279
+Processing image : 7289
+Processing image : 7299
+Processing image : 7309
+Processing image : 7319
+Processing image : 7329
+Processing image : 7339
+Processing image : 7349
+Processing image : 7359
+Processing image : 7369
+Processing image : 7379
+Processing image : 7389
+Processing image : 7399
+Processing image : 7409
+Processing image : 7419
+Processing image : 7429
+Processing image : 7439
+Processing image : 7449
+Processing image : 7459
+Processing image : 7469
+Processing image : 7479
+Processing image : 7489
+Processing image : 7499
+Processing image : 7509
+Processing image : 7519
+Processing image : 7529
+Processing image : 7539
+Processing image : 7549
+Processing image : 7559
+Processing image : 7569
+Processing image : 7579
+Processing image : 7589
+Processing image : 7599
+Processing image : 7609
+Processing image : 7619
+Processing image : 7629
+Processing image : 7639
+Processing image : 7649
+Processing image : 7659
+Processing image : 7669
+Processing image : 7679
+Processing image : 7689
+Processing image : 7699
+Processing image : 7709
+Processing image : 7719
+Processing image : 7729
+Processing image : 7739
+Processing image : 7749
+Processing image : 7759
+Processing image : 7769
+Processing image : 7779
+Processing image : 7789
+Processing image : 7799
+Processing image : 7809
+Processing image : 7819
+Processing image : 7829
+Processing image : 7839
+Processing image : 7849
+Processing image : 7859
+Processing image : 7869
+Processing image : 7879
+Processing image : 7889
+Processing image : 7899
+Processing image : 7909
+Processing image : 7919
+Processing image : 7929
+Processing image : 7939
+Processing image : 7949
+Processing image : 7959
+Processing image : 7969
+Processing image : 7979
+Processing image : 7989
+Processing image : 7999
+Processing image : 8009
+Processing image : 8019
+Processing image : 8029
+Processing image : 8039
+Processing image : 8049
+Processing image : 8059
+Processing image : 8069
+Processing image : 8079
+Processing image : 8089
+Processing image : 8099
+Processing image : 8109
+Processing image : 8119
+Processing image : 8129
+Processing image : 8139
+Processing image : 8149
+Processing image : 8159
+Processing image : 8169
+Processing image : 8179
+Processing image : 8189
+Processing image : 8199
+Processing image : 8209
+Processing image : 8219
+Processing image : 8229
+Processing image : 8239
+Processing image : 8249
+Processing image : 8259
+Processing image : 8269
+Processing image : 8279
+Processing image : 8289
+Processing image : 8299
+Processing image : 8309
+Processing image : 8319
+Processing image : 8329
+Processing image : 8339
+Processing image : 8349
+Processing image : 8359
+Processing image : 8369
+Processing image : 8379
+Processing image : 8389
+Processing image : 8399
+Processing image : 8409
+Processing image : 8419
+Processing image : 8429
+Processing image : 8439
+Processing image : 8449
+Processing image : 8459
+Processing image : 8469
+Processing image : 8479
+Processing image : 8489
+Processing image : 8499
+Processing image : 8509
+Processing image : 8519
+Processing image : 8529
+Processing image : 8539
+Processing image : 8549
+Processing image : 8559
+Processing image : 8569
+Processing image : 8579
+Processing image : 8589
+Processing image : 8599
+Processing image : 8609
+Processing image : 8619
+Processing image : 8629
+Processing image : 8639
+Processing image : 8649
+Processing image : 8659
+Processing image : 8669
+Processing image : 8679
+Processing image : 8689
+Processing image : 8699
+Processing image : 8709
+Processing image : 8719
+Processing image : 8729
+Processing image : 8739
+Processing image : 8749
+Processing image : 8759
+Processing image : 8769
+Processing image : 8779
+Processing image : 8789
+Processing image : 8799
+Processing image : 8809
+Processing image : 8819
+Processing image : 8829
+Processing image : 8839
+Processing image : 8849
+Processing image : 8859
+Processing image : 8869
+Processing image : 8879
+Processing image : 8889
+Processing image : 8899
+Processing image : 8909
+Processing image : 8919
+Processing image : 8929
+Processing image : 8939
+Processing image : 8949
+Processing image : 8959
+Processing image : 8969
+Processing image : 8979
+Processing image : 8989
+Processing image : 8999
+Processing image : 9009
+Processing image : 9019
+Processing image : 9029
+Processing image : 9039
+Processing image : 9049
+Processing image : 9059
+Processing image : 9069
+Processing image : 9079
+Processing image : 9089
+Processing image : 9099
+Processing image : 9109
+Processing image : 9119
+Processing image : 9129
+Processing image : 9139
+Processing image : 9149
+Processing image : 9159
+Processing image : 9169
+Processing image : 9179
+Processing image : 9189
+Processing image : 9199
+Processing image : 9209
+Processing image : 9219
+Processing image : 9229
+Processing image : 9239
+Processing image : 9249
+Processing image : 9259
+Processing image : 9269
+Processing image : 9279
+Processing image : 9289
+Processing image : 9299
+Processing image : 9309
+Processing image : 9319
+Processing image : 9329
+Processing image : 9339
+Processing image : 9349
+Processing image : 9359
+Processing image : 9369
+Processing image : 9379
+Processing image : 9389
+Processing image : 9399
+Processing image : 9409
+Processing image : 9419
+Processing image : 9429
+Processing image : 9439
+Processing image : 9449
+Processing image : 9459
+Processing image : 9469
+Processing image : 9479
+Processing image : 9489
+Processing image : 9499
+Processing image : 9509
+Processing image : 9519
+Processing image : 9529
+Processing image : 9539
+Processing image : 9549
+Processing image : 9559
+Processing image : 9569
+Processing image : 9579
+Processing image : 9589
+Processing image : 9599
+Processing image : 9609
+Processing image : 9619
+Processing image : 9629
+Processing image : 9639
+Processing image : 9649
+Processing image : 9659
+Processing image : 9669
+Processing image : 9679
+Processing image : 9689
+Processing image : 9699
+Processing image : 9709
+Processing image : 9719
+Processing image : 9729
+Processing image : 9739
+Processing image : 9749
+Processing image : 9759
+Processing image : 9769
+Processing image : 9779
+Processing image : 9789
+Processing image : 9799
+Processing image : 9809
+Processing image : 9819
+Processing image : 9829
+Processing image : 9839
+Processing image : 9849
+Processing image : 9859
+Processing image : 9869
+Processing image : 9879
+Processing image : 9889
+Processing image : 9899
+Processing image : 9909
+Processing image : 9919
+Processing image : 9929
+Processing image : 9939
+Processing image : 9949
+Processing image : 9959
+Processing image : 9969
+Processing image : 9979
+Processing image : 9989
+Processing image : 9999
+Processing image : 10009
+Processing image : 10019
+Processing image : 10029
+Processing image : 10039
+Processing image : 10049
+Processing image : 10059
+Processing image : 10069
+Processing image : 10079
+Processing image : 10089
+Processing image : 10099
+Processing image : 10109
+Processing image : 10119
+Processing image : 10129
+Processing image : 10139
+Processing image : 10149
+Processing image : 10159
+Processing image : 10169
+Processing image : 10179
+Processing image : 10189
+Processing image : 10199
+Processing image : 10209
+Processing image : 10219
+Processing image : 10229
+Processing image : 10239
+Processing image : 10249
+Processing image : 10259
+Processing image : 10269
+Processing image : 10279
+Processing image : 10289
+Processing image : 10299
+Processing image : 10309
+Processing image : 10319
+Processing image : 10329
+Processing image : 10339
+Processing image : 10349
+Processing image : 10359
+Processing image : 10369
+Processing image : 10379
+Processing image : 10389
+Processing image : 10399
+Processing image : 10409
+Processing image : 10419
+Processing image : 10429
+Processing image : 10439
+Processing image : 10449
+Processing image : 10459
+Processing image : 10469
+Processing image : 10479
+Processing image : 10489
+Processing image : 10499
+Processing image : 10509
+Processing image : 10519
+Processing image : 10529
+Processing image : 10539
+Processing image : 10549
+Processing image : 10559
+Processing image : 10569
+Processing image : 10579
+Processing image : 10589
+Processing image : 10599
+Processing image : 10609
+Processing image : 10619
+Processing image : 10629
+Processing image : 10639
+Processing image : 10649
+Processing image : 10659
+Processing image : 10669
+Processing image : 10679
+Processing image : 10689
+Processing image : 10699
+Processing image : 10709
+Processing image : 10719
+Processing image : 10729
+Processing image : 10739
+Processing image : 10749
+Processing image : 10759
+Processing image : 10769
+Processing image : 10779
+Processing image : 10789
+Processing image : 10799
+Processing image : 10809
+Processing image : 10819
+Processing image : 10829
+Processing image : 10839
+Processing image : 10849
+Processing image : 10859
+Processing image : 10869
+Processing image : 10879
+Processing image : 10889
+Processing image : 10899
+Processing image : 10909
+Processing image : 10919
+Processing image : 10929
+Processing image : 10939
+Processing image : 10949
+Processing image : 10959
+Processing image : 10969
+Processing image : 10979
+Processing image : 10989
+Processing image : 10999
+Processing image : 11009
+Processing image : 11019
+Processing image : 11029
+Processing image : 11039
+Processing image : 11049
+Processing image : 11059
