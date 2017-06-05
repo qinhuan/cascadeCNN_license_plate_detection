@@ -101,7 +101,7 @@ for current_picture in range(number_of_pictures):
     #rectangles = detect_lp_48c_net(net_48c, img_forward, rectangles, 0.2, np.array((117, 103, 89)))
     rectangles = global_nms_withIoM(rectangles)
     rectangles = cal_lp_48c_net(net_48_cal, img_forward, rectangles, 0.1, np.array((126, 102, 81)))
-    # show results
+    # save results
     img_show = io.imread(image_file_name)
     plt.clf()
     plt.imshow(img_show)

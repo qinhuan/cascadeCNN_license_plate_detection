@@ -10,8 +10,7 @@ Implement cascade cnn for license plate detection
 train process
 ------
 train process details in 
-    
-    process.txt
+`process.txt`
 
 test process
 ------
@@ -26,6 +25,11 @@ test process details in lp_test.py, you can run
     min_lp_size  : minimum license plate height size  
     max_lp_size  : maximum license plate height size  
     save_res_dir : save result dir  
+
+run lp_test.py
+- load model  
+- detect license plate  
+- save results 
 
 results
 ------
