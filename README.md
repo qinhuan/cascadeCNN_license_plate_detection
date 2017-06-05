@@ -9,12 +9,14 @@ Implement cascade cnn for license plate detection
 
 train process
 ------
-    train process details in process.txt
+train process details in 
+    process.txt
 
 test process
 ------
-    test process details in lp_test.py, you can run python lp_test.py  
-    you need to change some parameter as follows:  
+test process details in lp_test.py, you can run 
+    python lp_test.py  
+you need to change some parameter as follows:  
     caffe_root : caffe root dir  
     workspace  : code dir  
     img_dir    : image dir  
