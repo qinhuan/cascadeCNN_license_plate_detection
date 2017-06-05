@@ -31,6 +31,17 @@ run lp_test.py
 - `detect license plate`  
 - `save results` 
 
+For my dataset, I only use 12-net, 12-cal-net, 24-net and 48-cal-net.
+I set up the ratio of w and h to 3:1. net input size is as follow:
+- `12-net` : 12x4
+- `12-cal` : 36x12
+- `24-net` : 36x12
+- `48-cal` : 72x48
+
+You can change the parameters if you want.
+
+More infomation, you can read the paper and see the code.
+
 results
 ------
 
