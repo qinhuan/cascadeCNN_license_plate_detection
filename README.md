@@ -40,10 +40,17 @@ I set up the ratio of w and h to 3:1. net input size is as follow:
 
 You can change the parameters if you want.
 
-More infomation, you can read the paper and see the code.
+More information, you can read the paper and see the code.
 
 results
 ------
+![][1]
+![][2]
+![][3]
 
+-------------------------
+[1]:/script/00003.jpg
+[2]:/script/00004.jpg
+[3]:/script/00006.jpg
 
 
