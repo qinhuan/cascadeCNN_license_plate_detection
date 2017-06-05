@@ -12,12 +12,17 @@ train process
 train process details in 
 `process.txt`
 
+- `preprocess_data` : create positive data and negative data, resize, write file list, test recall  
+- `lmdb` : change data format to lmdb  
+- `train_net` : train net  
+- `script` : no use  
+
 test process
 ------
 test process details in lp_test.py, you can run 
 `python lp_test.py`  
     
-you need to change some parameter as follows:  
+you need to change some parameters as follows:  
 - `caffe_root` : caffe root dir  
 - `workspace`  : code dir  
 - `img_dir`    : image dir  
