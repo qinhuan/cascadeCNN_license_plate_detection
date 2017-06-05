@@ -15,8 +15,8 @@ train process details in
 test process
 ------
 test process details in lp_test.py, you can run 
-    python lp_test.py  
-you need to change some parameter as follows:  
+`python lp_test.py`  
+    you need to change some parameter as follows:  
     caffe_root : caffe root dir  
     workspace  : code dir  
     img_dir    : image dir  
