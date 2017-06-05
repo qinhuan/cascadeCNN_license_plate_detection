@@ -1,6 +1,3 @@
-'''
-creates hard negatives for lp_24c
-'''
 import numpy as np
 import cv2
 import os
@@ -32,15 +29,6 @@ for line in img_list.readlines():
 number_of_pictures = len(file_list)     # 9101 pictures
 print number_of_pictures
 
-# img_dir = '/home/work/qinhuan/mywork/license_plate/data/license_plate'
-# file_list = []
-# for file in os.listdir(img_dir):
-#     if file.endswith('.jpg'):
-#         file_list.append(file.strip())
-# 
-# number_of_pictures = len(file_list)     # 9101 pictures
-# print number_of_pictures
-
 # ==================  load lp12c_full_conv  ======================================
 # Set the right path to your model definition file, pretrained model weights,
 # and the image you would like to classify.
@@ -56,9 +44,6 @@ PRETRAINED = '/home/work/qinhuan/mywork/license_plate/cascadeCNN_license_plate_d
 net_12_cal = caffe.Net(MODEL_FILE, PRETRAINED, caffe.TEST)
 
 #===================  load lp24c  ==========================
-#MODEL_FILE = '/home/work/qinhuan/mywork/license_plate/cascadeCNN_license_plate_detection/train_net/jobs/license_24cCOCO_stepsize30000/deploy.prototxt'
-#PRETRAINED = '/home/work/qinhuan/mywork/license_plate/cascadeCNN_license_plate_detection/train_net/jobs/license_24cCOCO_stepsize30000/license_24c_iter_200000.caffemodel'
-
 MODEL_FILE = '/home/work/qinhuan/mywork/license_plate/cascadeCNN_license_plate_detection/train_net/jobs/license_24c/deploy.prototxt'
 PRETRAINED = '/home/work/qinhuan/mywork/license_plate/cascadeCNN_license_plate_detection/train_net/jobs/license_24c/license_24c_iter_400000.caffemodel'
 
@@ -128,7 +113,7 @@ for current_picture in range(number_of_pictures - 3000):
     #img_forward -= np.array((57, 59, 57))
     # 12
     s1 = time.clock()
-    rectangles = detect_lp_12c_net(net_12c_full_conv, img_forward, min_lp_size, max_lp_size, stride, True, 1.414, 0.90, np.array((58, 60, 58)))  
+    rectangles = detect_lp_12c_net(net_12c_full_conv, img_forward, min_lp_size, max_lp_size, True, 1.414, 0.90, np.array((58, 60, 58)))  
     t1 += time.clock() - s1
     p1 += len(rectangles)
     s1 = time.clock()
