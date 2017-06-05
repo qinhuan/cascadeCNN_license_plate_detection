@@ -47,10 +47,22 @@ results
 ![][1]
 ![][2]
 ![][3]
+![][4]
+![][5]
+![][6]
+![][7]
+![][8]
+![][9]
 
 -------------------------
-[1]:/script/00003.jpg
-[2]:/script/00004.jpg
-[3]:/script/00006.jpg
+[1]:/script/image/original/00000.jpg
+[2]:/script/image/original/00001.jpg
+[3]:/script/image/original/00002.jpg
+[4]:/script/image/original/00003.jpg
+[5]:/script/image/license_plate/00001.jpg
+[6]:/script/image/license_plate/00002.jpg
+[7]:/script/image/license_plate/00003.jpg
+[8]:/script/image/license_plate/00004.jpg
+[9]:/script/image/license_plate/00005.jpg
 
 

@@ -76,7 +76,7 @@ net_48_cal = caffe.Net(MODEL_FILE, PRETRAINED, caffe.TEST)
 
 # =========== detection  lps ============
 save_cnt = 0
-for current_picture in [4,5,7]:#range(number_of_pictures):
+for current_picture in range(number_of_pictures):
     if (current_picture + 1) % 10 == 0:
         print 'Processing image : ' + str(current_picture)
     image_name = file_list[current_picture]
@@ -101,18 +101,8 @@ for current_picture in [4,5,7]:#range(number_of_pictures):
     #rectangles = detect_lp_48c_net(net_48c, img_forward, rectangles, 0.2, np.array((117, 103, 89)))
     rectangles = global_nms_withIoM(rectangles)
     rectangles = cal_lp_48c_net(net_48_cal, img_forward, rectangles, 0.1, np.array((126, 102, 81)))
+   
     # save results
-    for rec in rectangles:
-        
-        x1 = int(rec[0])
-        y1 = int(rec[1])
-        x2 = int(rec[2])
-        y2 = int(rec[3])
-        cropped = img_crop[y1:y2, x1:x2]
-        cv2.imwrite(save_res_dir + '/' + str(save_cnt).zfill(5) + '.jpg', cropped)
-        save_cnt += 1
-    
-    ''' 
     img_show = io.imread(image_file_name)
     plt.clf()
     plt.imshow(img_show)
@@ -129,6 +119,12 @@ for current_picture in [4,5,7]:#range(number_of_pictures):
         ax.add_patch(plt.Rectangle(*coords, fill=False, edgecolor=colors[0], linewidth=2))
     plt.savefig(save_res_dir + '/' + str(save_cnt).zfill(5) + '.jpg', dpi=200, bbox_inches="tight")
     save_cnt += 1
-    # cropped = img_crop[y1:y2, x1:x2]
-    # cv2.imwrite(save_res_dir + '/' + str(bao).zfill(5) + '.jpg', cropped)
-    '''
+    
+    # for rec in rectangles:
+    #     x1 = int(rec[0])
+    #     y1 = int(rec[1])
+    #     x2 = int(rec[2])
+    #     y2 = int(rec[3])
+    #     cropped = img_crop[y1:y2, x1:x2]
+    #     cv2.imwrite(save_res_dir + '/' + str(save_cnt).zfill(5) + '.jpg', cropped)
+    #     save_cnt += 1
