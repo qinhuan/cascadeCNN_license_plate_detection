@@ -7,9 +7,9 @@ Implement cascade cnn for license plate detection
 ### Paper : http://users.eecs.northwestern.edu/~xsh835/assets/cvpr2015_cascnn.pdf
 ****
 
-train process
+Train process
 ------
-train process details in 
+Train process details in 
 `process.txt`
 
 - `preprocess_data` : create positive data and negative data, resize, write file list, test recall  
@@ -17,12 +17,12 @@ train process details in
 - `train_net` : train net  
 - `script` : no use  
 
-test process
+Test process
 ------
-test process details in lp_test.py, you can run 
+Test process details in lp_test.py, you can run 
 `python lp_test.py`  
     
-you need to change some parameters as follows:  
+You need to change some parameters as follows:  
 - `caffe_root` : caffe root dir  
 - `workspace`  : code dir  
 - `img_dir`    : image dir  
@@ -36,12 +36,15 @@ run lp_test.py
 - `detect license plate`  
 - `save results` 
 
-For my dataset, I only use 12-net, 12-cal-net, 24-net and 48-cal-net.
 I set up the ratio of w and h to 3:1. net input size is as follow:
 - `12-net` : 12x4
 - `12-cal` : 36x12
 - `24-net` : 36x12
-- `48-cal` : 72x48
+- `24-cal` : 36x12
+- `48-net` : 72x24
+- `48-cal` : 72x24
+
+For my dataset, I only use 12-net, 12-cal-net, 24-net and 48-cal-net.
 
 You can change the parameters if you want.
 
@@ -49,6 +52,12 @@ More information, you can read the paper and see the code.
 
 results
 ------
+Use 12-net, 12-cal-net, 24-net and 48-cal-net, runs at 10 FPS on a single CPU(Intel(R) Xeon(R) CPU E5-2630 v4 @ 2.20GHz) for 640x360 images.
+
+For more accurary, you can use 12-net, 12-cal, 24-net, 24-cal, 48-net and 48-cal.
+
+Detection results:
+
 ![][1]
 ![][2]
 ![][3]

@@ -83,7 +83,7 @@ for current_picture in range(number_of_pictures):
     image_file_name = img_dir + '/' + image_name
 
     img = cv2.imread(image_file_name)   # load image
-    img_crop = img[int(0.6*img.shape[0]) : img.shape[0], :]
+    img_crop = img[int(0.6*img.shape[0]) : img.shape[0], :] # change if needed
 
     if img is None:
         continue
