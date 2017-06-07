@@ -52,22 +52,11 @@ More information, you can read the paper and see the code.
 
 results
 ------
-Use 12-net, 12-cal-net, 24-net and 48-cal-net, runs at `10 FPS` on a single `CPU`(Intel(R) Xeon(R) CPU E5-2630 v4 @ 2.20GHz) for `640x360` images.
+Use 12-net, 12-cal-net, 24-net and 48-cal-net, runs at 10 FPS on a single CPU(Intel(R) Xeon(R) CPU E5-2630 v4 @ 2.20GHz) for 640x360 images.
 
 For more accurary, you can use 12-net, 12-cal, 24-net, 24-cal, 48-net and 48-cal.
 
 Detection results:
-
-![][1]
-![][2]
-![][3]
-![][4]
-![][5]
-![][6]
-![][7]
-![][8]
-![][9]
-
 -------------------------
 [1]:/script/image/original/00000.jpg
 [2]:/script/image/original/00001.jpg
